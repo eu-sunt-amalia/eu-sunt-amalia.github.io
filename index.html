@@ -191,38 +191,33 @@ const ph = (t,h) => 'data:image/svg+xml;utf8,' + encodeURIComponent(`<svg xmlns=
 /* imgs:[...] = photos (placeholders for now: swap ph(...) for your own image data). sub:[...] = a folder inside a folder. */
 const DATA = [
   { name:"About Me", color:"#d65d3b", files:[
-    { title:"Bio", desc:"Who I am, where I’m based and what I care about." , url:null },
-    { title:"Contact", desc:"The fastest way to reach me for projects and coffee.", url:"mailto:hello@example.com" },
-    { title:"Resume", desc:"Experience, education and the tools I use every day.", url:"https://example.org" }
+    { title:"Bio", desc:"I’m Amalia, 16 years old, and I study at Colegiul Mihai Eminescu in Bacău. I love flowers and cars, and I enjoy learning new things every day.", url:null },
+    { title:"Contact", desc:"The fastest way to reach me for projects and coffee.", url:null },
+    { title:"Resume", desc:"Experience, education and the tools I use every day.", url:null }
   ]},
   { name:"My Skills", color:"#14917f", files:[
     { title:"Language Skills", desc:"Language certificates and levels.", sub:[
-      { title:"Cambridge Diploma", desc:"My Cambridge English diploma.", imgs:[ph('Cambridge',200)], fit:"contain" }
+      { title:"Cambridge Diploma", desc:"I passed the Cambridge English C1 Diploma with an overall score of 188.", imgs:[ph('Cambridge',200)], fit:"contain" }
     ]},
     { title:"Digital Skills", desc:"Digital certificates, including ECDL.", sub:[
-      { title:"ECDL Diploma 1", desc:"My first ECDL diploma.", imgs:[ph('ECDL 1',160)], fit:"contain" },
+      { title:"ECDL Excel Certificate", desc:"Was not fun at all.", imgs:[ph('ECDL 1',160)], fit:"contain" },
       { title:"ECDL Diploma 2", desc:"My second ECDL diploma.", imgs:[ph('ECDL 2',120)], fit:"contain" }
     ]}
   ]},
   { name:"Competitions", color:"#7b3fe4", files:[
-    { title:"Competition 1", desc:"Write a short note about this competition here: what it was, the year and my result. (Example text, replace it.)", imgs:[ph('Contest 1 - photo 1',270),ph('Contest 1 - photo 2',300),ph('Contest 1 - photo 3',330)] },
-    { title:"Competition 2", desc:"Write a short note about this competition here: what it was, the year and my result. (Example text, replace it.)", imgs:[ph('Contest 2 - photo 1',20),ph('Contest 2 - photo 2',50),ph('Contest 2 - photo 3',80)] },
-    { title:"Competition 3", desc:"Write a short note about this competition here: what it was, the year and my result. (Example text, replace it.)", imgs:[ph('Contest 3 - photo 1',170),ph('Contest 3 - photo 2',200),ph('Contest 3 - photo 3',230)] }
+    { title:"National ICT Olympiad", desc:"I competed at the National ICT Olympiad, where I won 2nd place at county level and ranked 389th nationally out of about 90 (per the official results).", imgs:[ph('ICT Olympiad - photo 1',270),ph('ICT Olympiad - photo 2',300),ph('ICT Olympiad - photo 3',330)] },
+    { title:"iInnovation Day", desc:"I took part in iInnovation Day. (Photos coming soon — I’ll add them here.)", imgs:[ph('iInnovation Day - photo 1',20),ph('iInnovation Day - photo 2',50),ph('iInnovation Day - photo 3',80)] },
+    { title:"Story Rewriting Workshop", desc:"I attended a workshop on rewriting stories. (Photos coming soon — I’ll add them here.)", imgs:[ph('Story Workshop - photo 1',170),ph('Story Workshop - photo 2',200),ph('Story Workshop - photo 3',230)] },
+    { title:"National Public Speaking", desc:"I took part in the National Public Speaking competition. (Photos coming soon — I’ll add them here.)", imgs:[ph('Public Speaking - photo 1',300),ph('Public Speaking - photo 2',330),ph('Public Speaking - photo 3',360)] }
   ]},
   { name:"My Work", color:"#2f2fd0", files:[
-    { title:"Brand Studio", desc:"Identity and marketing site for a small creative studio.", url:"https://example.com" },
-    { title:"Dashboard App", desc:"A clean analytics dashboard built for busy teams.", url:"https://example.org" },
-    { title:"Docs Portal", desc:"A documentation site people actually enjoy reading.", url:"https://developer.mozilla.org" },
-    { title:"Online Shop", desc:"A fast, minimal storefront with a one-page checkout.", url:"https://www.wikipedia.org" }
+    { title:"PrintExpress Bacău", desc:"My favourite ibrary that is near my college.", url:"https://print-expresss.github.io/" },
+    { title:"Magic Candles", desc:"The most beautiful scented candles.", url:"https://magiccandles.github.io/" },
+    { title:"Anti drug", desc:"A website created for a competition, with the goal of promoting the management of addictions.", url:"https://anti-drog.github.io/" }
   ]},
   { name:"Photography & Hobbies", color:"#b79d7c", files:[
-    { title:"Film Diary", desc:"Scans from rolls of 35mm shot over the years.", url:"https://example.com" },
-    { title:"Golden Hour", desc:"Landscapes chased at sunrise and sunset.", url:"https://example.org" },
-    { title:"Street Series", desc:"Candid moments from cities I’ve walked through.", url:"https://www.wikipedia.org" }
-  ]},
-  { name:"Playground", color:"#181818", files:[
-    { title:"Animation Lab", desc:"Small interactive experiments and motion studies.", url:"https://example.com" },
-    { title:"Open Source", desc:"Tools and snippets I’ve shared with the community.", url:"https://example.org" }
+    { title:"Flowers", desc:"Photos of flowers I love. (I’ll add my pictures here.)", imgs:[ph('Flowers - photo 1',330),ph('Flowers - photo 2',350),ph('Flowers - photo 3',20)] },
+    { title:"Cars", desc:"Photos of cars I like. (I’ll add my pictures here.)", imgs:[ph('Cars - photo 1',210),ph('Cars - photo 2',230),ph('Cars - photo 3',250)] }
   ]}
 ];
 /* ================================================ */
@@ -233,33 +228,29 @@ const pad = n => String(n).padStart(2,'0');
 let cur=0, files=[], papers=[], up=false, busy=false, lock=false, openIdx=null, openBtn=null, lastWheel=0;
 
 /* ---------- Romanian translations (key = English title / name) ---------- */
-const RO_F = {"My Skills":"Competențele mele","Competitions":"Concursuri","About Me":"Despre mine","My Work":"Munca mea","Photography & Hobbies":"Fotografie și hobby-uri","Playground":"Laborator"};
+const RO_F = {"My Skills":"Competențele mele","Competitions":"Concursuri","About Me":"Despre mine","My Work":"Munca mea","Photography & Hobbies":"Fotografie și hobby-uri"};
 const RO = {
   "Language Skills":["Competențe lingvistice","Certificate și niveluri de limbă."],
   "Digital Skills":["Competențe digitale","Certificate digitale, inclusiv ECDL."],
-  "Cambridge Diploma":["Diploma Cambridge","Diploma mea Cambridge English."],
+  "Cambridge Diploma":["Diploma Cambridge","Am obținut diploma Cambridge English C1 cu scorul general 188."],
   "ECDL Diploma 1":["Diploma ECDL 1","Prima mea diplomă ECDL."],
   "ECDL Diploma 2":["Diploma ECDL 2","A doua mea diplomă ECDL."],
-  "Competition 1":["Concurs 1","Scrie aici câteva rânduri despre concurs: ce a fost, în ce an și ce rezultat ai obținut. (Text exemplu, de înlocuit.)"],
-  "Competition 2":["Concurs 2","Scrie aici câteva rânduri despre concurs: ce a fost, în ce an și ce rezultat ai obținut. (Text exemplu, de înlocuit.)"],
-  "Competition 3":["Concurs 3","Scrie aici câteva rânduri despre concurs: ce a fost, în ce an și ce rezultat ai obținut. (Text exemplu, de înlocuit.)"],
-  "Bio":["Bio","Cine sunt, unde locuiesc și ce îmi pasă."],
-  "Contact":["Contact","Cea mai rapidă cale să mă găsești pentru proiecte sau o cafea."],
-  "Resume":["CV","Experiență, studii și instrumentele pe care le folosesc zilnic."],
-  "Skills":["Abilități","Design, front-end, animație și lucrurile pe care le învăț în continuare."],
-  "Brand Studio":["Brand Studio","Identitate și site de prezentare pentru un mic studio creativ."],
-  "Dashboard App":["Aplicație Dashboard","Un panou de analiză curat, făcut pentru echipe ocupate."],
-  "Docs Portal":["Portal de documentație","Un site de documentație pe care oamenii chiar îl citesc cu plăcere."],
-  "Online Shop":["Magazin online","Un magazin rapid și minimalist, cu comandă pe o singură pagină."],
-  "Film Diary":["Jurnal de film","Scanări de pe role de 35 mm fotografiate de-a lungul anilor."],
-  "Golden Hour":["Ora de aur","Peisaje urmărite la răsărit și la apus."],
-  "Street Series":["Seria stradală","Momente spontane din orașele prin care am umblat."],
-  "Animation Lab":["Laborator de animație","Mici experimente interactive și studii de mișcare."],
-  "Open Source":["Open Source","Unelte și fragmente de cod pe care le-am împărtășit cu comunitatea."]
+  "National ICT Olympiad":["Olimpiada Națională de TIC","Am participat la Olimpiada Națională de TIC în clasa a IX-a, unde am obținut locul 2 pe județ și m-am clasat pe locul 38 la nivel național, din aproximativ 90 (conform rezultatelor oficiale)."],
+  "iInnovation Day":["iInnovation Day","Am participat la iInnovation Day."],
+  "Story Rewriting Workshop":["Atelier de rescris povești","Am participat la concursul Atelier de rescris povești. "],
+  "National Public Speaking":["Concurs Național de Public Speaking","Am participat la concursul național de public speaking. (Pozele vor fi adăugate în curând.)"],
+  "Bio":["Bio","Sunt Amalia, am 16 ani și studiez la Colegiul Mihai Eminescu din Bacău. Îmi plac florile și mașinile și îmi place să învăț lucruri noi în fiecare zi."],
+  "Contact":["Contact","Cea mai rapidă cale să mă găsești pentru proiecte sau o cafea este să mă contactezi pe Whatsapp."],
+  "Resume":["CV","Sunt și voluntară la FSC"],
+  "My Website 1":["PrintExpress Bacău","Librăria mea favorită de lângă gară."],
+  "My Website 2":["Magic Candles","Cele mai frumoase lumânări parfumate."],
+  "My Website 3":["Anti drog", "Un site realizat pentru un concurs cu scopul de a promova controlarea adicțiilor."],
+  "Flowers":["Flori","Poze cu flori care îmi plac. (Voi adăuga imaginile mele aici.)"],
+  "Cars":["Mașini","Poze cu mașini care îmi plac. (Voi adăuga imaginile mele aici.)"]
 };
 const UI = {
   en:{title:'Amalia — Portfolio',h1:'Hi, I’m Amalia.<br>Open a folder.',sub:'Everything I’ve made and loved, filed on one shelf: who I am, the work I ship, and the pictures I take.',mail:'Say hello',back:'← Back to the shelf',hint:'Scroll, swipe or use the arrow keys',prev:'Previous file',next:'Next file',open:'Open folder',sorted:', A to Z',visit:'Visit',email:'Send an email',preview:'Preview of',openf:'Open folder',backup:'← Back',zoom:'Enlarge'},
-  ro:{title:'Amalia — Portofoliu',h1:'Salut, sunt Amalia.<br>Deschide un dosar.',sub:'Tot ce am creat și iubit, pe un singur raft: cine sunt, proiectele pe care le livrez și pozele pe care le fac.',mail:'Scrie-mi',back:'← Înapoi la raft',hint:'Derulează, trage sau folosește săgețile',prev:'Fișierul anterior',next:'Fișierul următor',open:'Deschide dosarul',sorted:', de la A la Z',visit:'Vizitează',email:'Trimite un e-mail',preview:'Previzualizare',openf:'Deschide dosarul',backup:'← Înapoi',zoom:'Mărește'}
+  ro:{title:'Amalia — Portofoliu',h1:'Salut, sunt Amalia.<br>Deschide un dosar.',sub:'Tot ce am creat și iubit, pe o singură pagină: cine sunt, proiectele la care lucrez și pozele pe care le fac.',mail:'Scrie-mi',back:'← Înapoi la raft',hint:'Derulează, trage sau folosește săgețile',prev:'Fișierul anterior',next:'Fișierul următor',open:'Deschide dosarul',sorted:', de la A la Z',visit:'Vizitează',email:'Trimite un e-mail',preview:'Previzualizare',openf:'Deschide dosarul',backup:'← Înapoi',zoom:'Mărește'}
 };
 let lang='en';
 try{ lang=localStorage.getItem('lang')||''; }catch(e){}
