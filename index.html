@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Your Name — Portfolio</title>
+<style>
+:root{
+  --bg:#e4e4e4;--bg2:#f4f4f4;--fg:#111;--mute:#5c5c5c;--btn:#111;--btnfg:#fff;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#151515;--bg2:#232323;--fg:#f2f2f2;--mute:#9a9a9a;--btn:#f2f2f2;--btnfg:#111}}
+:root[data-theme="dark"]{--bg:#151515;--bg2:#232323;--fg:#f2f2f2;--mute:#9a9a9a;--btn:#f2f2f2;--btnfg:#111}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%}
+body{margin:0;height:100%;overflow:hidden;color:var(--fg);font-family:"Helvetica Neue",Inter,"Segoe UI",Arial,sans-serif;
+  background:var(--bg) linear-gradient(115deg,transparent 30%,var(--bg2) 45%,transparent 60%) no-repeat;background-size:200% 100%}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+header{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(20px,5vw,64px);z-index:5}
+.logo{font-weight:700;font-size:22px;letter-spacing:-.02em}
+.mail{color:var(--fg);text-decoration:none;font-size:14px;border:1px solid color-mix(in srgb,var(--fg) 25%,transparent);padding:10px 18px;border-radius:12px}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid #3030d6;outline-offset:3px}
+
+/* HOME */
+#home{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:90px clamp(20px,5vw,64px) 30px;gap:clamp(24px,5vh,56px);transition:opacity .5s}
+#home.dim h1,#home.dim p{opacity:0;transform:translateY(-16px)}
+h1{margin:0;font-size:clamp(44px,8vw,104px);line-height:1.04;letter-spacing:-.04em;font-weight:600;transition:.6s}
+#home p{margin:16px 0 0;font-size:clamp(16px,2vw,20px);color:var(--mute);max-width:46ch;line-height:1.5;transition:.6s}
+#shelf{position:relative;display:flex;flex-wrap:wrap;gap:clamp(14px,2.2vw,28px);padding-bottom:22px}
+#shelf::after{content:"";position:absolute;left:-12px;right:-12px;bottom:0;height:14px;border-radius:8px;background:color-mix(in srgb,var(--fg) 14%,transparent)}
+.folder{position:relative;width:min(250px,44vw);height:190px;border:0;background:none;padding:0;cursor:pointer;
+  transition:transform .65s cubic-bezier(.2,.8,.2,1),opacity .5s;animation:rise .8s cubic-bezier(.2,.8,.2,1) both;animation-delay:var(--d)}
+@keyframes rise{from{transform:translateY(80px);opacity:0}}
+.folder.away{transform:translateY(150px);opacity:0;pointer-events:none}
+.folder.ghost{visibility:hidden}
+.tab{position:absolute;left:0;top:0;width:46%;height:46px;background:var(--c);border-radius:18px 18px 0 0;z-index:1}
+.pk{position:absolute;left:14px;right:14px;top:14px;height:130px;background:#fff;border-radius:8px;z-index:2;transform:rotate(-3deg);transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+.p2{background:#efece4;transform:rotate(2.5deg);left:22px;right:22px}
+.folder:hover .pk,.folder:focus-visible .pk{transform:translateY(-18px) rotate(-3deg)}
+.folder:hover .p2,.folder:focus-visible .p2{transform:translateY(-10px) rotate(2.5deg)}
+.fb{position:absolute;inset:28px 0 0;border-radius:6px 22px 22px 22px;background:var(--c);color:#fff;padding:16px 18px;display:flex;flex-direction:column;justify-content:flex-end;text-align:left;z-index:3}
+.fb b{font-size:20px;font-weight:600;letter-spacing:-.01em}
+.fb small{font-size:14px;opacity:.75;margin-top:2px}
+
+/* STAGE */
+#stage{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:84px 0 16px;z-index:4;pointer-events:none;
+  --pw:min(340px,62vw,38vh);--ph:calc(var(--pw)*1.32)}
+#stage[hidden]{display:none}
+#stage>*{pointer-events:auto}
+#back,#bar{opacity:0;transition:opacity .4s}
+#stage.ctl #back,#stage.ctl #bar{opacity:1}
+#back{align-self:flex-start;margin-left:calc((100vw - min(94vw,1080px))/2);border:0;background:none;font-size:15px;cursor:pointer;padding:8px 0;color:var(--mute)}
+#back:hover{color:var(--fg)}
+#scene{position:relative;width:min(94vw,1080px);height:calc(var(--ph) + 150px);opacity:0;transition:transform .75s cubic-bezier(.7,0,.2,1),opacity .3s;perspective:1400px}
+.back{position:absolute;inset:44px 0 0;background:var(--c);border-radius:6px 28px 28px 28px;z-index:1}
+.back::before{content:"";position:absolute;left:0;top:-44px;width:240px;height:46px;background:var(--c);border-radius:20px 20px 0 0}
+#track{position:absolute;inset:0;z-index:2;clip-path:inset(-400px -400px 0 -400px);touch-action:pan-y}
+.front{position:absolute;left:0;right:0;bottom:0;height:120px;z-index:5;border-radius:24px 24px 28px 28px;color:#fff;
+  background:color-mix(in srgb,var(--c) 86%,#000);display:flex;align-items:center;justify-content:space-between;padding:0 clamp(18px,3vw,36px);
+  opacity:0;transform-origin:50% 100%;transform:rotateX(-35deg);transition:opacity .3s,transform .7s cubic-bezier(.2,.8,.2,1);pointer-events:none}
+#stage.ready .front{opacity:1;transform:none}
+.front b{display:block;font-size:clamp(22px,3.4vw,34px);letter-spacing:-.02em;font-weight:600}
+.front small{opacity:.75;font-size:14px}
+.front span{font-size:13px;opacity:.7;text-align:right;max-width:20ch}
+.paper{position:absolute;left:50%;bottom:76px;width:var(--pw);height:var(--ph);background:#fffefb;color:#161616;border-radius:6px;padding:12px;display:flex;flex-direction:column;gap:12px;
+  box-shadow:0 18px 40px rgba(0,0,0,.22),0 2px 4px rgba(0,0,0,.12);cursor:pointer;transform-origin:50% 100%;will-change:transform;
+  transition:transform .85s cubic-bezier(.2,.8,.2,1),opacity .5s,filter .5s,box-shadow .5s;user-select:none}
+.paper.sink{transition:transform .34s cubic-bezier(.55,0,.8,.4)}
+.shot{position:relative;flex:0 0 52%;border-radius:4px;overflow:hidden;background:#e8e6e0;border:1px solid #0001}
+.shot .ph{position:absolute;inset:0;display:grid;place-items:center;font-size:30px;font-weight:600;letter-spacing:-.03em;color:#0006;padding:12px;text-align:center}
+.shot iframe{position:absolute;left:0;top:0;border:0;pointer-events:none;background:#fff;transform-origin:0 0}
+.txt{display:flex;flex-direction:column;gap:6px;min-height:0;flex:1}
+.txt h3{margin:0;font-size:19px;letter-spacing:-.02em}
+.txt p{margin:0;font-size:13.5px;line-height:1.45;color:#555;overflow:hidden}
+.go{margin-top:auto;font-size:13px;font-weight:600;transition:transform .3s}
+.paper.cur:hover .go{transform:translateX(4px)}
+#bar{display:flex;align-items:center;gap:18px;font-size:15px}
+#bar button{width:48px;height:48px;border-radius:50%;border:0;background:var(--btn);color:var(--btnfg);font-size:20px;cursor:pointer;transition:transform .2s,opacity .2s}
+#bar button:hover:not(:disabled){transform:scale(1.08)}
+#bar button:disabled{opacity:.3;cursor:default}
+#bar span{min-width:16ch;text-align:center;color:var(--mute)}
+@media (max-width:600px){.front span{display:none}}
+.hr{display:flex;align-items:center;gap:10px}
+#lang{display:flex;padding:4px;border-radius:12px;border:1px solid color-mix(in srgb,var(--fg) 25%,transparent);background:none;cursor:pointer}
+#lang span{padding:6px 11px;border-radius:8px;font-size:13px;font-weight:600;color:var(--mute);transition:background .3s,color .3s}
+#lang span.on{background:var(--btn);color:var(--btnfg)}
+#bg{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;--mx:50vw;--my:50vh}
+.blob{position:absolute;border-radius:50%;filter:blur(80px);opacity:.38;animation:drift 24s ease-in-out infinite alternate}
+.b1{width:460px;height:460px;left:4%;top:12%;background:#3fd0ff}
+.b2{width:560px;height:560px;right:-4%;bottom:-6%;background:#6a6cff;animation-duration:30s;animation-delay:-8s}
+.b3{width:360px;height:360px;left:44%;top:30%;background:#7af0ff;animation-duration:19s;animation-delay:-4s}
+@keyframes drift{to{transform:translate(90px,-60px) scale(1.18)}}
+#grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,185,255,.35) 1px,transparent 1px),linear-gradient(90deg,rgba(0,185,255,.35) 1px,transparent 1px);background-size:48px 48px;-webkit-mask-image:radial-gradient(280px circle at var(--mx) var(--my),#000,transparent);mask-image:radial-gradient(280px circle at var(--mx) var(--my),#000,transparent)}
+#glow,#core{position:absolute;left:0;top:0;border-radius:50%;will-change:transform}
+#glow{width:620px;height:620px;margin:-310px 0 0 -310px;background:radial-gradient(circle,rgba(0,215,255,.6) 0,rgba(0,170,255,.24) 35%,transparent 68%)}
+#core{width:150px;height:150px;margin:-75px 0 0 -75px;background:radial-gradient(circle,rgba(190,250,255,.95) 0,rgba(60,220,255,.35) 45%,transparent 70%);filter:blur(8px);animation:breathe 3.2s ease-in-out infinite}
+#glow.flash{animation:fl .7s ease-out}
+@keyframes fl{35%{filter:brightness(1.9) saturate(1.5)}}
+@keyframes breathe{50%{opacity:.65}}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .blob,:root:not([data-theme="light"]) #glow,:root:not([data-theme="light"]) #core{mix-blend-mode:screen}}
+.paper.cur{box-shadow:0 18px 40px rgba(0,0,0,.22),0 0 0 1px rgba(60,210,255,.5),0 0 38px rgba(40,200,255,.5)}
+.fb{transition:box-shadow .4s}
+.folder:hover .fb,.folder:focus-visible .fb{box-shadow:0 0 38px color-mix(in srgb,var(--c) 75%,transparent)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01s!important}}
+</style>
+</head>
+<body>
+<div id="bg" aria-hidden="true"><i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i><i id="grid"></i><i id="glow"></i><i id="core"></i></div>
+<header><div class="logo">YourName.</div><div class="hr"><button id="lang" type="button" aria-label="Language / Limbă"><span data-l="ro">RO</span><span data-l="en">EN</span></button><a class="mail" href="mailto:hello@example.com">Say hello</a></div></header>
+
+<main id="home">
+  <div>
+    <h1>Hi, I’m Your Name.<br>Open a folder.</h1>
+    <p>Everything I’ve made and loved, filed on one shelf: who I am, the work I ship, and the pictures I take.</p>
+  </div>
+  <div id="shelf"></div>
+</main>
+
+<section id="stage" hidden>
+  <button id="back" type="button">← Back to the shelf</button>
+  <div id="scene">
+    <div class="back"></div>
+    <div id="track"></div>
+    <div class="front"><div><b id="fname"></b><small id="fmeta"></small></div><span>Scroll, swipe or use the arrow keys</span></div>
+  </div>
+  <div id="bar">
+    <button id="prev" type="button" aria-label="Previous file">←</button>
+    <span id="count"></span>
+    <button id="next" type="button" aria-label="Next file">→</button>
+  </div>
+</section>
+
+<script>
+/* ============ EDIT YOUR CONTENT HERE ============
+   Each folder has files. url = the real site (opens in a new tab and is shown as a live preview).
+   Set url to null for a file that is just text. Files are sorted A–Z automatically. */
+const DATA = [
+  { name:"About Me", color:"#d65d3b", files:[
+    { title:"Bio", desc:"Who I am, where I’m based and what I care about." , url:null },
+    { title:"Contact", desc:"The fastest way to reach me for projects and coffee.", url:"mailto:hello@example.com" },
+    { title:"Resume", desc:"Experience, education and the tools I use every day.", url:"https://example.org" },
+    { title:"Skills", desc:"Design, front-end, motion and the things I’m learning next.", url:null }
+  ]},
+  { name:"My Work", color:"#2f2fd0", files:[
+    { title:"Brand Studio", desc:"Identity and marketing site for a small creative studio.", url:"https://example.com" },
+    { title:"Dashboard App", desc:"A clean analytics dashboard built for busy teams.", url:"https://example.org" },
+    { title:"Docs Portal", desc:"A documentation site people actually enjoy reading.", url:"https://developer.mozilla.org" },
+    { title:"Online Shop", desc:"A fast, minimal storefront with a one-page checkout.", url:"https://www.wikipedia.org" }
+  ]},
+  { name:"Photography & Hobbies", color:"#b79d7c", files:[
+    { title:"Film Diary", desc:"Scans from rolls of 35mm shot over the years.", url:"https://example.com" },
+    { title:"Golden Hour", desc:"Landscapes chased at sunrise and sunset.", url:"https://example.org" },
+    { title:"Street Series", desc:"Candid moments from cities I’ve walked through.", url:"https://www.wikipedia.org" }
+  ]},
+  { name:"Playground", color:"#181818", files:[
+    { title:"Animation Lab", desc:"Small interactive experiments and motion studies.", url:"https://example.com" },
+    { title:"Open Source", desc:"Tools and snippets I’ve shared with the community.", url:"https://example.org" }
+  ]}
+];
+/* ================================================ */
+
+const $ = s => document.querySelector(s);
+const home=$('#home'), shelf=$('#shelf'), stage=$('#stage'), scene=$('#scene'), track=$('#track');
+const pad = n => String(n).padStart(2,'0');
+let cur=0, files=[], papers=[], up=false, busy=false, lock=false, openIdx=null, openBtn=null, lastWheel=0;
+
+/* ---------- Romanian translations (key = English title / name) ---------- */
+const RO_F = {"About Me":"Despre mine","My Work":"Munca mea","Photography & Hobbies":"Fotografie și hobby-uri","Playground":"Laborator"};
+const RO = {
+  "Bio":["Bio","Cine sunt, unde locuiesc și ce îmi pasă."],
+  "Contact":["Contact","Cea mai rapidă cale să mă găsești pentru proiecte sau o cafea."],
+  "Resume":["CV","Experiență, studii și instrumentele pe care le folosesc zilnic."],
+  "Skills":["Abilități","Design, front-end, animație și lucrurile pe care le învăț în continuare."],
+  "Brand Studio":["Brand Studio","Identitate și site de prezentare pentru un mic studio creativ."],
+  "Dashboard App":["Aplicație Dashboard","Un panou de analiză curat, făcut pentru echipe ocupate."],
+  "Docs Portal":["Portal de documentație","Un site de documentație pe care oamenii chiar îl citesc cu plăcere."],
+  "Online Shop":["Magazin online","Un magazin rapid și minimalist, cu comandă pe o singură pagină."],
+  "Film Diary":["Jurnal de film","Scanări de pe role de 35 mm fotografiate de-a lungul anilor."],
+  "Golden Hour":["Ora de aur","Peisaje urmărite la răsărit și la apus."],
+  "Street Series":["Seria stradală","Momente spontane din orașele prin care am umblat."],
+  "Animation Lab":["Laborator de animație","Mici experimente interactive și studii de mișcare."],
+  "Open Source":["Open Source","Unelte și fragmente de cod pe care le-am împărtășit cu comunitatea."]
+};
+const UI = {
+  en:{title:'Your Name — Portfolio',h1:'Hi, I’m Your Name.<br>Open a folder.',sub:'Everything I’ve made and loved, filed on one shelf: who I am, the work I ship, and the pictures I take.',mail:'Say hello',back:'← Back to the shelf',hint:'Scroll, swipe or use the arrow keys',prev:'Previous file',next:'Next file',open:'Open folder',sorted:', A to Z',visit:'Visit',email:'Send an email',preview:'Preview of'},
+  ro:{title:'Numele Tău — Portofoliu',h1:'Salut, sunt Numele Tău.<br>Deschide un dosar.',sub:'Tot ce am creat și iubit, pe un singur raft: cine sunt, proiectele pe care le livrez și pozele pe care le fac.',mail:'Scrie-mi',back:'← Înapoi la raft',hint:'Derulează, trage sau folosește săgețile',prev:'Fișierul anterior',next:'Fișierul următor',open:'Deschide dosarul',sorted:', de la A la Z',visit:'Vizitează',email:'Trimite un e-mail',preview:'Previzualizare'}
+};
+let lang='en';
+try{ lang=localStorage.getItem('lang')||''; }catch(e){}
+if(lang!=='ro' && lang!=='en') lang=(navigator.language||'').toLowerCase().startsWith('ro')?'ro':'en';
+const T = k => UI[lang][k];
+const nf = n => lang==='ro' ? n+(n===1?' fișier':' fișiere') : n+(n===1?' file':' files');
+const tn = f => (lang==='ro' && RO_F[f.name]) || f.name;
+const tf = file => { const r = lang==='ro' && RO[file.title]; return {title:r?r[0]:file.title, desc:r?r[1]:file.desc}; };
+const sorted = i => DATA[i].files.slice().sort((a,b) => tf(a).title.localeCompare(tf(b).title, lang));
+
+function settle(){
+  papers.forEach(p => p.style.transition='none'); layout(); void track.offsetWidth; papers.forEach(p => p.style.transition='');
+}
+function setLang(l){
+  lang=l; try{ localStorage.setItem('lang',l); }catch(e){}
+  document.documentElement.lang=l; document.title=T('title');
+  $('h1').innerHTML=T('h1'); $('#home p').textContent=T('sub');
+  $('.mail').textContent=T('mail'); $('#back').textContent=T('back'); $('.front span').textContent=T('hint');
+  $('#prev').setAttribute('aria-label',T('prev')); $('#next').setAttribute('aria-label',T('next'));
+  document.querySelectorAll('#lang span').forEach(s => s.classList.toggle('on', s.dataset.l===l));
+  [...shelf.children].forEach((b,i) => {
+    b.querySelector('b').textContent=tn(DATA[i]); b.querySelector('small').textContent=nf(DATA[i].files.length);
+    b.setAttribute('aria-label',T('open')+' '+tn(DATA[i]));
+  });
+  if(openIdx!==null) relang();
+}
+function relang(n=0){
+  if(openIdx===null || n>8) return;
+  if(!up || busy || lock) return setTimeout(() => relang(n+1), 400);
+  lock=true; const keep=files[cur];
+  up=false; layout(-1,true);                       // files sink, then come back in the new language
+  setTimeout(() => {
+    if(busy || openIdx===null){ lock=false; return; }
+    build(openIdx, keep); fit(); settle();
+    up=true; layout(-1,true);
+    setTimeout(() => lock=false, 900);
+  }, 700);
+}
+
+DATA.forEach((f,i) => {
+  const b = document.createElement('button');
+  b.className='folder'; b.type='button';
+  b.style.setProperty('--c', f.color); b.style.setProperty('--d', i*90+'ms');
+  /* labels are set in setLang */
+  b.innerHTML = `<i class="tab"></i><span class="pk"></span><span class="pk p2"></span><span class="fb"><b></b><small></small></span>`;
+  b.onclick = () => openFolder(i,b);
+  shelf.append(b);
+});
+
+function domain(u){ try{ return new URL(u).hostname.replace('www.',''); }catch(e){ return ''; } }
+
+function build(i,keep){
+  const f = DATA[i]; files = sorted(i); cur = keep ? Math.max(0,files.indexOf(keep)) : 0; up = false;
+  scene.style.setProperty('--c', f.color);
+  $('#fname').textContent = tn(f);
+  $('#fmeta').textContent = nf(files.length)+T('sorted');
+  track.innerHTML = '';
+  papers = files.map((file,k) => {
+    const p = document.createElement('article');
+    p.className='paper';
+    const web = file.url && file.url.startsWith('http'); const x = tf(file);
+    p.innerHTML = `<div class="shot"><div class="ph">${web?domain(file.url):x.title}</div>${web?`<iframe data-src="${file.url}" title="${T('preview')} ${x.title}" tabindex="-1" loading="lazy" referrerpolicy="no-referrer" sandbox="allow-scripts allow-same-origin"></iframe>`:''}</div>
+      <div class="txt"><h3>${x.title}</h3><p>${x.desc}</p>${file.url?`<span class="go">${file.url.startsWith('mailto')?T('email'):T('visit')+' '+domain(file.url)} ↗</span>`:''}</div>`;
+    p.onclick = () => k===cur ? visit(file) : go(k);
+    track.append(p);
+    return p;
+  });
+}
+
+function visit(file){
+  if(!file.url) return;
+  if(file.url.startsWith('mailto')) location.href=file.url; else window.open(file.url,'_blank','noopener');
+}
+
+function fit(){
+  papers.forEach(p => {
+    const s = p.querySelector('.shot'), fr = p.querySelector('iframe'); if(!fr) return;
+    const k = s.clientWidth/1280;
+    fr.style.width='1280px'; fr.style.height=(s.clientHeight/k)+'px'; fr.style.transform=`scale(${k})`;
+  });
+}
+
+function loadNear(){
+  [cur-1,cur,cur+1].forEach(k => { const fr = papers[k] && papers[k].querySelector('iframe'); if(fr && !fr.src) fr.src = fr.dataset.src; });
+}
+
+function layout(sink=-1, stagger=false){
+  const pw = papers[0].offsetWidth;
+  papers.forEach((p,i) => {
+    const d=i-cur, a=Math.abs(d);
+    const x=d*pw*.56, y=(up && i!==sink)? a*20 : pw*1.7, r=d*3.5, s=1-a*.07;
+    p.style.transitionDelay = stagger ? a*80+'ms' : '0ms';
+    p.style.transform = `translateX(calc(-50% + ${x}px)) translateY(${y}px) rotate(${r}deg) scale(${s})`;
+    p.style.zIndex = 50-a; p.style.opacity = a>2?0:1;
+    p.style.filter = a? `brightness(${1-a*.07})` : 'none';
+    p.classList.toggle('cur', !d);
+  });
+  $('#count').textContent = pad(cur+1)+' / '+pad(files.length)+'  ·  '+files[cur].title;
+  $('#prev').disabled = cur===0; $('#next').disabled = cur===files.length-1;
+  loadNear();
+}
+
+function go(n){
+  if(!up || lock || n<0 || n>=files.length || n===cur) return;
+  lock = true;
+  const old = papers[cur];
+  old.classList.add('sink'); layout(cur);          // current file is put back into the folder
+  setTimeout(() => { old.classList.remove('sink'); cur=n; layout(); lock=false; }, 340);   // then the stack scrolls
+}
+
+function flipTo(r){
+  const s = scene.getBoundingClientRect();
+  return `translate(${r.left+r.width/2-(s.left+s.width/2)}px,${r.top+r.height/2-(s.top+s.height/2)}px) scale(${r.width/s.width},${r.height/s.height})`;
+}
+
+function openFolder(i,b){
+  if(busy) return; busy=true; openIdx=i; openBtn=b;
+  stage.hidden=false; build(i); fit(); settle();
+  const r = b.getBoundingClientRect();
+  scene.style.transition='none'; scene.style.transform='none'; scene.style.opacity='0';
+  scene.style.transform = flipTo(r); void scene.offsetWidth;
+  scene.style.transition=''; scene.style.opacity='1'; scene.style.transform='none';
+  home.classList.add('dim'); b.classList.add('ghost');
+  [...shelf.children].forEach(c => { if(c!==b) c.classList.add('away'); });
+  setTimeout(() => {
+    stage.classList.add('ready','ctl'); up=true; layout(-1,true);
+    setTimeout(() => busy=false, 900);
+  }, 720);
+}
+
+function closeFolder(){
+  if(busy || lock || openIdx===null) return; busy=true;
+  stage.classList.remove('ctl'); up=false; layout(-1,true);       // files go back into the folder
+  setTimeout(() => {
+    stage.classList.remove('ready');
+    const r = openBtn.getBoundingClientRect();
+    scene.style.transform = flipTo(r); scene.style.opacity='0';   // folder returns to the shelf
+    [...shelf.children].forEach(c => c.classList.remove('away'));
+    home.classList.remove('dim');
+    setTimeout(() => {
+      openBtn.classList.remove('ghost'); stage.hidden=true;
+      scene.style.transition='none'; scene.style.transform='none'; void scene.offsetWidth; scene.style.transition='';
+      openIdx=null; busy=false;
+    }, 650);
+  }, 900);
+}
+
+$('#back').onclick = closeFolder;
+$('#prev').onclick = () => go(cur-1);
+$('#next').onclick = () => go(cur+1);
+addEventListener('keydown', e => {
+  if(openIdx===null) return;
+  if(e.key==='Escape') closeFolder();
+  if(e.key==='ArrowRight') go(cur+1);
+  if(e.key==='ArrowLeft') go(cur-1);
+});
+stage.addEventListener('wheel', e => {
+  const d = Math.abs(e.deltaX)>Math.abs(e.deltaY)? e.deltaX : e.deltaY;
+  if(Math.abs(d)<20 || Date.now()-lastWheel<650) return;
+  lastWheel=Date.now(); go(cur+(d>0?1:-1));
+},{passive:true});
+let sx=null;
+track.addEventListener('pointerdown', e => sx=e.clientX);
+addEventListener('pointerup', e => { if(sx!==null && Math.abs(e.clientX-sx)>50) go(cur+(e.clientX<sx?1:-1)); sx=null; });
+addEventListener('resize', () => { if(openIdx!==null){ fit(); layout(); } });
+$('#lang').onclick = () => setLang(lang==='ro' ? 'en' : 'ro');
+setLang(lang);
+
+/* ---------- neon cursor glow + reactive grid ---------- */
+const bg=$('#bg'), glow=$('#glow'), core=$('#core'), rm=matchMedia('(prefers-reduced-motion:reduce)').matches;
+let mx=innerWidth/2, my=innerHeight/2, gx=mx, gy=my, cx=mx, cy=my;
+addEventListener('pointermove', e => { mx=e.clientX; my=e.clientY; });
+addEventListener('pointerdown', e => { mx=e.clientX; my=e.clientY; glow.classList.remove('flash'); void glow.offsetWidth; glow.classList.add('flash'); });
+(function tick(){
+  const k=rm?1:.07, k2=rm?1:.2;
+  gx+=(mx-gx)*k; gy+=(my-gy)*k; cx+=(mx-cx)*k2; cy+=(my-cy)*k2;
+  glow.style.transform=`translate(${gx}px,${gy}px)`; core.style.transform=`translate(${cx}px,${cy}px)`;
+  bg.style.setProperty('--mx',cx+'px'); bg.style.setProperty('--my',cy+'px');
+  requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>
