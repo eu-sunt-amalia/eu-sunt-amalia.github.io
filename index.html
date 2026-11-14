@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Your Name — Portfolio</title>
+<title>Amalia — Portfolio</title>
 <style>
 :root{
   --bg:#e4e4e4;--bg2:#f4f4f4;--fg:#111;--mute:#5c5c5c;--btn:#111;--btnfg:#fff;
@@ -23,19 +23,19 @@ button{font:inherit;color:inherit}
 :focus-visible{outline:3px solid #3030d6;outline-offset:3px}
 
 /* HOME */
-#home{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:90px clamp(20px,5vw,64px) 30px;gap:clamp(24px,5vh,56px);transition:opacity .5s}
+#home{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:safe center;overflow-x:hidden;overflow-y:auto;scrollbar-width:none;padding:90px clamp(20px,5vw,64px) 30px;gap:clamp(18px,4vh,44px);transition:opacity .5s}
 #home.dim h1,#home.dim p{opacity:0;transform:translateY(-16px)}
-h1{margin:0;font-size:clamp(44px,8vw,104px);line-height:1.04;letter-spacing:-.04em;font-weight:600;transition:.6s}
+h1{margin:0;font-size:clamp(40px,6vw,84px);line-height:1.04;letter-spacing:-.04em;font-weight:600;transition:.6s}
 #home p{margin:16px 0 0;font-size:clamp(16px,2vw,20px);color:var(--mute);max-width:46ch;line-height:1.5;transition:.6s}
 #shelf{position:relative;display:flex;flex-wrap:wrap;gap:clamp(14px,2.2vw,28px);padding-bottom:22px}
 #shelf::after{content:"";position:absolute;left:-12px;right:-12px;bottom:0;height:14px;border-radius:8px;background:color-mix(in srgb,var(--fg) 14%,transparent)}
-.folder{position:relative;width:min(250px,44vw);height:190px;border:0;background:none;padding:0;cursor:pointer;
+.folder{position:relative;width:min(205px,44vw);height:166px;border:0;background:none;padding:0;cursor:pointer;
   transition:transform .65s cubic-bezier(.2,.8,.2,1),opacity .5s;animation:rise .8s cubic-bezier(.2,.8,.2,1) both;animation-delay:var(--d)}
 @keyframes rise{from{transform:translateY(80px);opacity:0}}
 .folder.away{transform:translateY(150px);opacity:0;pointer-events:none}
 .folder.ghost{visibility:hidden}
 .tab{position:absolute;left:0;top:0;width:46%;height:46px;background:var(--c);border-radius:18px 18px 0 0;z-index:1}
-.pk{position:absolute;left:14px;right:14px;top:14px;height:130px;background:#fff;border-radius:8px;z-index:2;transform:rotate(-3deg);transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+.pk{position:absolute;left:14px;right:14px;top:14px;height:104px;background:#fff;border-radius:8px;z-index:2;transform:rotate(-3deg);transition:transform .45s cubic-bezier(.2,.8,.2,1)}
 .p2{background:#efece4;transform:rotate(2.5deg);left:22px;right:22px}
 .folder:hover .pk,.folder:focus-visible .pk{transform:translateY(-18px) rotate(-3deg)}
 .folder:hover .p2,.folder:focus-visible .p2{transform:translateY(-10px) rotate(2.5deg)}
@@ -102,16 +102,38 @@ h1{margin:0;font-size:clamp(44px,8vw,104px);line-height:1.04;letter-spacing:-.04
 .paper.cur{box-shadow:0 18px 40px rgba(0,0,0,.22),0 0 0 1px rgba(60,210,255,.5),0 0 38px rgba(40,200,255,.5)}
 .fb{transition:box-shadow .4s}
 .folder:hover .fb,.folder:focus-visible .fb{box-shadow:0 0 38px color-mix(in srgb,var(--c) 75%,transparent)}
+#home.dim{overflow:hidden}#home::-webkit-scrollbar{display:none}
+.mini{position:absolute;inset:20px 24px 0}
+.mini i{position:absolute;left:0;top:0;width:44%;height:26px;background:var(--c);border-radius:14px 14px 0 0}
+.mini b{position:absolute;inset:22px 0 0;background:var(--c);border-radius:4px 18px 0 0;z-index:2}
+.mini .pa,.mini .pb{position:absolute;left:12px;right:12px;top:10px;bottom:30px;background:#fff;border-radius:6px;transform:rotate(-3deg);z-index:1}
+.mini .pb{background:#efece4;transform:rotate(2.5deg);left:20px;right:20px;top:4px}
+.gal{position:absolute;inset:0;overflow:hidden;touch-action:pan-y}
+.gt{display:flex;height:100%;transition:transform .7s cubic-bezier(.2,.8,.2,1)}
+.gt img{flex:0 0 100%;width:100%;height:100%;object-fit:cover;user-select:none;-webkit-user-drag:none}
+.gal.ct{background:#f4f3ee}.gal.ct img{object-fit:contain}
+.gb{position:absolute;top:50%;transform:translateY(-50%);width:30px;height:30px;border-radius:50%;border:0;background:#000a;color:#fff;cursor:pointer;font-size:18px;line-height:1;opacity:0;transition:opacity .25s}
+.gp{left:8px}.gn{right:8px}
+.paper.cur:hover .gb{opacity:1}.paper:not(.cur) .gb{pointer-events:none}
+@media (hover:none){.paper.cur .gb{opacity:.85}}
+.dots{position:absolute;bottom:8px;left:0;right:0;display:flex;justify-content:center;gap:5px;pointer-events:none}
+.dots i{width:6px;height:6px;border-radius:50%;background:#fff9;box-shadow:0 0 3px #0006;transition:.3s}
+.dots i.on{background:#fff;width:16px;border-radius:4px}
+#lb{position:fixed;inset:0;z-index:20;background:rgba(5,10,20,.86);backdrop-filter:blur(6px);display:grid;place-items:center;opacity:0;pointer-events:none;transition:opacity .3s;cursor:zoom-out}
+#lb.on{opacity:1;pointer-events:auto}
+#lb img{max-width:90vw;max-height:88vh;border-radius:6px;box-shadow:0 0 60px rgba(40,200,255,.35);grid-area:1/1}
+.lbn{grid-area:1/1;align-self:center;width:46px;height:46px;border-radius:50%;border:0;background:#fff2;color:#fff;font-size:26px;cursor:pointer;z-index:1}
+.lbn[hidden]{display:none}.lbn:first-child{justify-self:start;margin-left:16px}.lbn:last-child{justify-self:end;margin-right:16px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01s!important}}
 </style>
 </head>
 <body>
 <div id="bg" aria-hidden="true"><i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i><i id="grid"></i><i id="glow"></i><i id="core"></i></div>
-<header><div class="logo">YourName.</div><div class="hr"><button id="lang" type="button" aria-label="Language / Limbă"><span data-l="ro">RO</span><span data-l="en">EN</span></button><a class="mail" href="mailto:hello@example.com">Say hello</a></div></header>
+<header><div class="logo">Amalia.</div><div class="hr"><button id="lang" type="button" aria-label="Language / Limbă"><span data-l="ro">RO</span><span data-l="en">EN</span></button></div></header>
 
 <main id="home">
   <div>
-    <h1>Hi, I’m Your Name.<br>Open a folder.</h1>
+    <h1>Hi, I’m Amalia.<br>Open a folder.</h1>
     <p>Everything I’ve made and loved, filed on one shelf: who I am, the work I ship, and the pictures I take.</p>
   </div>
   <div id="shelf"></div>
@@ -131,16 +153,32 @@ h1{margin:0;font-size:clamp(44px,8vw,104px);line-height:1.04;letter-spacing:-.04
   </div>
 </section>
 
+<div id="lb" role="dialog" aria-label="Image"><button class="lbn" data-d="-1" type="button" aria-label="Previous">‹</button><img alt=""><button class="lbn" data-d="1" type="button" aria-label="Next">›</button></div>
 <script>
 /* ============ EDIT YOUR CONTENT HERE ============
    Each folder has files. url = the real site (opens in a new tab and is shown as a live preview).
    Set url to null for a file that is just text. Files are sorted A–Z automatically. */
+const ph = (t,h) => 'data:image/svg+xml;utf8,' + encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='hsl(${h},70%,60%)'/><stop offset='1' stop-color='hsl(${h+40},70%,36%)'/></linearGradient></defs><rect width='800' height='600' fill='url(#g)'/><text x='400' y='312' font-family='Arial,sans-serif' font-size='46' font-weight='700' fill='#fff' text-anchor='middle'>${t}</text></svg>`);
+/* imgs:[...] = photos (placeholders for now: swap ph(...) for your own image data). sub:[...] = a folder inside a folder. */
 const DATA = [
   { name:"About Me", color:"#d65d3b", files:[
     { title:"Bio", desc:"Who I am, where I’m based and what I care about." , url:null },
     { title:"Contact", desc:"The fastest way to reach me for projects and coffee.", url:"mailto:hello@example.com" },
-    { title:"Resume", desc:"Experience, education and the tools I use every day.", url:"https://example.org" },
-    { title:"Skills", desc:"Design, front-end, motion and the things I’m learning next.", url:null }
+    { title:"Resume", desc:"Experience, education and the tools I use every day.", url:"https://example.org" }
+  ]},
+  { name:"My Skills", color:"#14917f", files:[
+    { title:"Language Skills", desc:"Language certificates and levels.", sub:[
+      { title:"Cambridge Diploma", desc:"My Cambridge English diploma.", imgs:[ph('Cambridge',200)], fit:"contain" }
+    ]},
+    { title:"Digital Skills", desc:"Digital certificates, including ECDL.", sub:[
+      { title:"ECDL Diploma 1", desc:"My first ECDL diploma.", imgs:[ph('ECDL 1',160)], fit:"contain" },
+      { title:"ECDL Diploma 2", desc:"My second ECDL diploma.", imgs:[ph('ECDL 2',120)], fit:"contain" }
+    ]}
+  ]},
+  { name:"Competitions", color:"#7b3fe4", files:[
+    { title:"Competition 1", desc:"Write a short note about this competition here: what it was, the year and my result. (Example text, replace it.)", imgs:[ph('Contest 1 - photo 1',270),ph('Contest 1 - photo 2',300),ph('Contest 1 - photo 3',330)] },
+    { title:"Competition 2", desc:"Write a short note about this competition here: what it was, the year and my result. (Example text, replace it.)", imgs:[ph('Contest 2 - photo 1',20),ph('Contest 2 - photo 2',50),ph('Contest 2 - photo 3',80)] },
+    { title:"Competition 3", desc:"Write a short note about this competition here: what it was, the year and my result. (Example text, replace it.)", imgs:[ph('Contest 3 - photo 1',170),ph('Contest 3 - photo 2',200),ph('Contest 3 - photo 3',230)] }
   ]},
   { name:"My Work", color:"#2f2fd0", files:[
     { title:"Brand Studio", desc:"Identity and marketing site for a small creative studio.", url:"https://example.com" },
@@ -166,8 +204,16 @@ const pad = n => String(n).padStart(2,'0');
 let cur=0, files=[], papers=[], up=false, busy=false, lock=false, openIdx=null, openBtn=null, lastWheel=0;
 
 /* ---------- Romanian translations (key = English title / name) ---------- */
-const RO_F = {"About Me":"Despre mine","My Work":"Munca mea","Photography & Hobbies":"Fotografie și hobby-uri","Playground":"Laborator"};
+const RO_F = {"My Skills":"Competențele mele","Competitions":"Concursuri","About Me":"Despre mine","My Work":"Munca mea","Photography & Hobbies":"Fotografie și hobby-uri","Playground":"Laborator"};
 const RO = {
+  "Language Skills":["Competențe lingvistice","Certificate și niveluri de limbă."],
+  "Digital Skills":["Competențe digitale","Certificate digitale, inclusiv ECDL."],
+  "Cambridge Diploma":["Diploma Cambridge","Diploma mea Cambridge English."],
+  "ECDL Diploma 1":["Diploma ECDL 1","Prima mea diplomă ECDL."],
+  "ECDL Diploma 2":["Diploma ECDL 2","A doua mea diplomă ECDL."],
+  "Competition 1":["Concurs 1","Scrie aici câteva rânduri despre concurs: ce a fost, în ce an și ce rezultat ai obținut. (Text exemplu, de înlocuit.)"],
+  "Competition 2":["Concurs 2","Scrie aici câteva rânduri despre concurs: ce a fost, în ce an și ce rezultat ai obținut. (Text exemplu, de înlocuit.)"],
+  "Competition 3":["Concurs 3","Scrie aici câteva rânduri despre concurs: ce a fost, în ce an și ce rezultat ai obținut. (Text exemplu, de înlocuit.)"],
   "Bio":["Bio","Cine sunt, unde locuiesc și ce îmi pasă."],
   "Contact":["Contact","Cea mai rapidă cale să mă găsești pentru proiecte sau o cafea."],
   "Resume":["CV","Experiență, studii și instrumentele pe care le folosesc zilnic."],
@@ -183,8 +229,8 @@ const RO = {
   "Open Source":["Open Source","Unelte și fragmente de cod pe care le-am împărtășit cu comunitatea."]
 };
 const UI = {
-  en:{title:'Your Name — Portfolio',h1:'Hi, I’m Your Name.<br>Open a folder.',sub:'Everything I’ve made and loved, filed on one shelf: who I am, the work I ship, and the pictures I take.',mail:'Say hello',back:'← Back to the shelf',hint:'Scroll, swipe or use the arrow keys',prev:'Previous file',next:'Next file',open:'Open folder',sorted:', A to Z',visit:'Visit',email:'Send an email',preview:'Preview of'},
-  ro:{title:'Numele Tău — Portofoliu',h1:'Salut, sunt Numele Tău.<br>Deschide un dosar.',sub:'Tot ce am creat și iubit, pe un singur raft: cine sunt, proiectele pe care le livrez și pozele pe care le fac.',mail:'Scrie-mi',back:'← Înapoi la raft',hint:'Derulează, trage sau folosește săgețile',prev:'Fișierul anterior',next:'Fișierul următor',open:'Deschide dosarul',sorted:', de la A la Z',visit:'Vizitează',email:'Trimite un e-mail',preview:'Previzualizare'}
+  en:{title:'Amalia — Portfolio',h1:'Hi, I’m Amalia.<br>Open a folder.',sub:'Everything I’ve made and loved, filed on one shelf: who I am, the work I ship, and the pictures I take.',mail:'Say hello',back:'← Back to the shelf',hint:'Scroll, swipe or use the arrow keys',prev:'Previous file',next:'Next file',open:'Open folder',sorted:', A to Z',visit:'Visit',email:'Send an email',preview:'Preview of',openf:'Open folder',backup:'← Back',zoom:'Enlarge'},
+  ro:{title:'Amalia — Portofoliu',h1:'Salut, sunt Amalia.<br>Deschide un dosar.',sub:'Tot ce am creat și iubit, pe un singur raft: cine sunt, proiectele pe care le livrez și pozele pe care le fac.',mail:'Scrie-mi',back:'← Înapoi la raft',hint:'Derulează, trage sau folosește săgețile',prev:'Fișierul anterior',next:'Fișierul următor',open:'Deschide dosarul',sorted:', de la A la Z',visit:'Vizitează',email:'Trimite un e-mail',preview:'Previzualizare',openf:'Deschide dosarul',backup:'← Înapoi',zoom:'Mărește'}
 };
 let lang='en';
 try{ lang=localStorage.getItem('lang')||''; }catch(e){}
@@ -193,8 +239,54 @@ const T = k => UI[lang][k];
 const nf = n => lang==='ro' ? n+(n===1?' fișier':' fișiere') : n+(n===1?' file':' files');
 const tn = f => (lang==='ro' && RO_F[f.name]) || f.name;
 const tf = file => { const r = lang==='ro' && RO[file.title]; return {title:r?r[0]:file.title, desc:r?r[1]:file.desc}; };
-const sorted = i => DATA[i].files.slice().sort((a,b) => tf(a).title.localeCompare(tf(b).title, lang));
+const sorted = n => (n.files||n.sub).slice().sort((a,b) => tf(a).title.localeCompare(tf(b).title, lang));
 
+let stack=[];
+const crumb = () => stack.map((n,k) => k ? tf(n).title : tn(n)).join(' › ');
+function act(file,p){
+  if(p._swiped) return;
+  if(file.sub){ nav(() => stack.push(file)); return; }
+  if(file.url){ visit(file); return; }
+  if(file.imgs) lightbox(file.imgs, p._gi||0);
+}
+function nav(fn,keep){
+  if(busy || lock || !up || openIdx===null) return;
+  lock=true; up=false; layout(-1,true);            // files sink, the next level rises
+  setTimeout(() => {
+    if(busy || openIdx===null){ lock=false; return; }
+    fn(); build(stack[stack.length-1], keep); fit(); settle();
+    up=true; layout(-1,true);
+    setTimeout(() => lock=false, 900);
+  }, 700);
+}
+function goBack(){
+  if(stack.length>1){ const t=stack[stack.length-1]; nav(() => stack.pop(), t); } else closeFolder();
+}
+let lbSet=[], lbI=0;
+function lightbox(imgs,i){
+  lbSet=imgs; lbI=i; $('#lb img').src=imgs[i];
+  document.querySelectorAll('.lbn').forEach(b => b.hidden=imgs.length<2);
+  $('#lb').classList.add('on');
+}
+function lbMove(d){ lbI=(lbI+d+lbSet.length)%lbSet.length; $('#lb img').src=lbSet[lbI]; }
+function buildGal(p,file){
+  const n=file.imgs.length, s=p.querySelector('.shot');
+  s.innerHTML = `<div class="gal ${file.fit==='contain'?'ct':''}"><div class="gt">${file.imgs.map(u => `<img src="${u}" alt="" draggable="false">`).join('')}</div>${n>1?`<button class="gb gp" type="button" aria-label="Previous photo">‹</button><button class="gb gn" type="button" aria-label="Next photo">›</button><div class="dots">${file.imgs.map(() => '<i></i>').join('')}</div>`:''}</div>`;
+  p._gi=0; p._gn=n; p._gpause=0;
+  const set = i => { p._gi=(i+n)%n; p.querySelector('.gt').style.transform=`translateX(${-100*p._gi}%)`; p.querySelectorAll('.dots i').forEach((d,k) => d.classList.toggle('on',k===p._gi)); };
+  p._gset=set; set(0);
+  if(n>1){
+    const hold = () => p._gpause=Date.now()+7000;
+    p.querySelector('.gp').onclick = e => { e.stopPropagation(); hold(); set(p._gi-1); };
+    p.querySelector('.gn').onclick = e => { e.stopPropagation(); hold(); set(p._gi+1); };
+    let x0=null; const g=p.querySelector('.gal');
+    g.addEventListener('pointerdown', e => x0=e.clientX);
+    g.addEventListener('pointerup', e => {
+      if(x0!==null && p.classList.contains('cur') && Math.abs(e.clientX-x0)>40){ hold(); set(p._gi+(e.clientX<x0?1:-1)); p._swiped=1; setTimeout(() => p._swiped=0, 60); }
+      x0=null;
+    });
+  }
+}
 function settle(){
   papers.forEach(p => p.style.transition='none'); layout(); void track.offsetWidth; papers.forEach(p => p.style.transition='');
 }
@@ -202,7 +294,7 @@ function setLang(l){
   lang=l; try{ localStorage.setItem('lang',l); }catch(e){}
   document.documentElement.lang=l; document.title=T('title');
   $('h1').innerHTML=T('h1'); $('#home p').textContent=T('sub');
-  $('.mail').textContent=T('mail'); $('#back').textContent=T('back'); $('.front span').textContent=T('hint');
+  $('#back').textContent=T('back'); $('.front span').textContent=T('hint');
   $('#prev').setAttribute('aria-label',T('prev')); $('#next').setAttribute('aria-label',T('next'));
   document.querySelectorAll('#lang span').forEach(s => s.classList.toggle('on', s.dataset.l===l));
   [...shelf.children].forEach((b,i) => {
@@ -218,7 +310,7 @@ function relang(n=0){
   up=false; layout(-1,true);                       // files sink, then come back in the new language
   setTimeout(() => {
     if(busy || openIdx===null){ lock=false; return; }
-    build(openIdx, keep); fit(); settle();
+    build(stack[stack.length-1], keep); fit(); settle();
     up=true; layout(-1,true);
     setTimeout(() => lock=false, 900);
   }, 700);
@@ -236,11 +328,12 @@ DATA.forEach((f,i) => {
 
 function domain(u){ try{ return new URL(u).hostname.replace('www.',''); }catch(e){ return ''; } }
 
-function build(i,keep){
-  const f = DATA[i]; files = sorted(i); cur = keep ? Math.max(0,files.indexOf(keep)) : 0; up = false;
+function build(node,keep){
+  const f = DATA[openIdx]; files = sorted(node); cur = keep ? Math.max(0,files.indexOf(keep)) : 0; up = false;
   scene.style.setProperty('--c', f.color);
-  $('#fname').textContent = tn(f);
+  $('#fname').textContent = crumb();
   $('#fmeta').textContent = nf(files.length)+T('sorted');
+  $('#back').textContent = stack.length>1 ? T('backup') : T('back');
   track.innerHTML = '';
   papers = files.map((file,k) => {
     const p = document.createElement('article');
@@ -248,7 +341,15 @@ function build(i,keep){
     const web = file.url && file.url.startsWith('http'); const x = tf(file);
     p.innerHTML = `<div class="shot"><div class="ph">${web?domain(file.url):x.title}</div>${web?`<iframe data-src="${file.url}" title="${T('preview')} ${x.title}" tabindex="-1" loading="lazy" referrerpolicy="no-referrer" sandbox="allow-scripts allow-same-origin"></iframe>`:''}</div>
       <div class="txt"><h3>${x.title}</h3><p>${x.desc}</p>${file.url?`<span class="go">${file.url.startsWith('mailto')?T('email'):T('visit')+' '+domain(file.url)} ↗</span>`:''}</div>`;
-    p.onclick = () => k===cur ? visit(file) : go(k);
+    if(file.sub){
+      p.classList.add('isfolder');
+      p.querySelector('.shot').innerHTML = `<div class="mini" style="--c:${f.color}"><i></i><span class="pa"></span><span class="pb"></span><b></b></div>`;
+      p.querySelector('.txt').insertAdjacentHTML('beforeend', `<span class="go">${nf(file.sub.length)} · ${T('openf')} ↗</span>`);
+    } else if(file.imgs){
+      buildGal(p,file);
+      if(!file.url) p.querySelector('.txt').insertAdjacentHTML('beforeend', `<span class="go">${T('zoom')} ⤢</span>`);
+    }
+    p.onclick = () => k===cur ? act(file,p) : go(k);
     track.append(p);
     return p;
   });
@@ -302,7 +403,7 @@ function flipTo(r){
 
 function openFolder(i,b){
   if(busy) return; busy=true; openIdx=i; openBtn=b;
-  stage.hidden=false; build(i); fit(); settle();
+  stage.hidden=false; stack=[DATA[i]]; build(DATA[i]); fit(); settle();
   const r = b.getBoundingClientRect();
   scene.style.transition='none'; scene.style.transform='none'; scene.style.opacity='0';
   scene.style.transform = flipTo(r); void scene.offsetWidth;
@@ -332,12 +433,18 @@ function closeFolder(){
   }, 900);
 }
 
-$('#back').onclick = closeFolder;
+$('#back').onclick = goBack;
 $('#prev').onclick = () => go(cur-1);
 $('#next').onclick = () => go(cur+1);
 addEventListener('keydown', e => {
+  if($('#lb').classList.contains('on')){
+    if(e.key==='Escape') $('#lb').classList.remove('on');
+    if(e.key==='ArrowRight') lbMove(1);
+    if(e.key==='ArrowLeft') lbMove(-1);
+    return;
+  }
   if(openIdx===null) return;
-  if(e.key==='Escape') closeFolder();
+  if(e.key==='Escape') goBack();
   if(e.key==='ArrowRight') go(cur+1);
   if(e.key==='ArrowLeft') go(cur-1);
 });
@@ -347,7 +454,8 @@ stage.addEventListener('wheel', e => {
   lastWheel=Date.now(); go(cur+(d>0?1:-1));
 },{passive:true});
 let sx=null;
-track.addEventListener('pointerdown', e => sx=e.clientX);
+track.addEventListener('pointerdown', e => { sx = e.target.closest('.gal') ? null : e.clientX; });
+$('#lb').onclick = e => { const b=e.target.closest('.lbn'); if(b){ lbMove(+b.dataset.d); return; } $('#lb').classList.remove('on'); };
 addEventListener('pointerup', e => { if(sx!==null && Math.abs(e.clientX-sx)>50) go(cur+(e.clientX<sx?1:-1)); sx=null; });
 addEventListener('resize', () => { if(openIdx!==null){ fit(); layout(); } });
 $('#lang').onclick = () => setLang(lang==='ro' ? 'en' : 'ro');
@@ -358,6 +466,10 @@ const bg=$('#bg'), glow=$('#glow'), core=$('#core'), rm=matchMedia('(prefers-red
 let mx=innerWidth/2, my=innerHeight/2, gx=mx, gy=my, cx=mx, cy=my;
 addEventListener('pointermove', e => { mx=e.clientX; my=e.clientY; });
 addEventListener('pointerdown', e => { mx=e.clientX; my=e.clientY; glow.classList.remove('flash'); void glow.offsetWidth; glow.classList.add('flash'); });
+setInterval(() => {   // photo galleries scroll by themselves, and pause after a manual move
+  if(rm || document.hidden || openIdx===null || !up) return;
+  papers.forEach(p => { if(p._gn>1 && Date.now()>p._gpause && !p.matches(':hover')) p._gset(p._gi+1); });
+}, 3200);
 (function tick(){
   const k=rm?1:.07, k2=rm?1:.2;
   gx+=(mx-gx)*k; gy+=(my-gy)*k; cx+=(mx-cx)*k2; cy+=(my-cy)*k2;
